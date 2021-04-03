@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GridGen</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row vh-100">
+            <div class="col-3" id="images_zone">
+                <button type="button" class="btn btn-primary" id="settings_show">Settings</button>
+                <!--<input type="file" id="load_image_input">-->
+                <div id="images_container"></div>
+            </div>
+            <div class="col-9">
+                <canvas id="output_image" class="w-100"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid" id="settings">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-primary" id="settings_hide">Settings</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col">
+                <label>Seed:</label>
+                <input type="text" class="form-control w-25 inline" id="seed">
+            </div>
+        </div>
+        <div class="row image">
+            <div>Image</div>
+            <div class="form-group col border-form-group">
+                <label>Width:</label>
+                <input type="number" class="form-control w-25 inline width" min="2">
+                <label>Height:</label>
+                <input type="number" class="form-control w-25 inline height" min="2">
+            </div>
+        </div>
+        <div class="row grid">
+            <div>Grid</div>
+            <div class="form-group col border-form-group">
+                <label>Width:</label>
+                <input type="number" class="form-control w-25 inline width" min="2">
+                <label>Height:</label>
+                <input type="number" class="form-control w-25 inline height" min="2">
+            </div>
+        </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
+    <script src="bundle.js"></script>
+</body>
+
+</html>

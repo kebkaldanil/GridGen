@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"allowJs": true,
+		"module": "es6",
+		"target": "ESNext",
+		"outDir": "dist",
+		"removeComments": true,
+		"moduleResolution": "node"
+	}
+}
