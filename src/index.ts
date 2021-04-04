@@ -58,13 +58,26 @@ $("#images_zone")
     .on("dragenter dragover dragleave drop", e => {
         e.preventDefault();
         e.stopPropagation();
-    }).on("drop", (ev) => {
+    }).on("drop", async (ev) => {
         const nimages = Array.from(ev.originalEvent.dataTransfer.files)
             .filter(b => b.type.startsWith("image"))
-            .map(img => $<HTMLImageElement>(`<img class="w-100" src="${URL.createObjectURL(img)}" />`)[0]);
-        images_container.append(nimages);
-        images.push(...nimages);
-        Promise.all(nimages.map(v => new Promise(resolve => $(v).on("load", resolve)))).then(generate);
+            .map(img => URL.createObjectURL(img))
+            .concat(await Promise.all(Array.from(ev.originalEvent.dataTransfer.items)
+            .filter(i => i.type === "text/uri-list")
+            .map(i => new Promise<string>(r => i.getAsString(r)))))
+            .map(uri => $<HTMLImageElement>(`<img class="w-100" src="${uri}" />`)[0]);
+        Promise.all(nimages.map(v => new Promise<void>(resolve => $(v).on("load", () => {
+            const ni = nimages.filter(v => {
+                const isLoaded = v.complete && v.naturalHeight !== 0;
+                if (!isLoaded)
+                    v.remove();
+                return isLoaded;
+            });
+            images_container.append(ni);
+            images.push(...ni);
+            //images.push(...nimages);
+            resolve();
+        })))).then(generate);
     });
 init();
 
