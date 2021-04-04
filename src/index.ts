@@ -1,5 +1,4 @@
-import Rand, { PRNG } from 'rand-seed';
-import { forSaveOrLoad, Grid } from './helpers';
+import { forSaveOrLoad, Grid, Random } from './helpers';
 const images = [] as HTMLImageElement[];
 const output_image = $<HTMLCanvasElement>("#output_image");
 const images_container = $("#images_container");
@@ -16,7 +15,10 @@ const settingsS = (() => {
         image: {
             width: image.find(".width"),
             height: image.find(".height")
-        }
+        },
+        size1: $("#size1"),
+        size2: $("#size2"),
+        size4: $("#size4")
     };
 })();
 settingsE.slideUp(0);
@@ -34,7 +36,7 @@ $("#settings_hide").on("click", () => {
     generate();
 });
 const ctx = output_image[0].getContext("2d");
-let random: Rand;
+let random: Random;
 let grid: Grid;
 
 const settings = Object.assign({
@@ -46,10 +48,13 @@ const settings = Object.assign({
     image: {
         width: 300,
         height: 300
-    }
+    },
+    size1: 1,
+    size2: 1,
+    size4: 1
 }, JSON.parse(localStorage.getItem("settings") || "{}") as {});
 
-const img_zone = $("#images_zone")
+$("#images_zone")
     .on("dragenter dragover dragleave drop", e => {
         e.preventDefault();
         e.stopPropagation();
@@ -71,12 +76,39 @@ function placeImage(cis: CanvasImageSource, x: number, y: number, w: number, h: 
 
 function generate() {
     ctx.clearRect(0, 0, settings.image.width, settings.image.height);
-    for (let x = 0; x < grid.width; x++) {
-        for (let y = 0; y < grid.height; y++) {
-            grid.set(images[Math.floor(random.next() * images.length)], x, y);
-            placeImage(grid.get(x, y), x, y, 1, 1);
+    grid.clearSquere(0, 0, grid.width, grid.height);
+    const sizes = [{
+        size: 1,
+        chance: settings.size1
+    }, {
+        size: 2,
+        chance: settings.size2
+    }, {
+        size: 4,
+        chance: settings.size4
+    }];
+    //const chanceSum = sizes.reduce((p, c) => p + c.chance, 0);
+    //sizes.forEach(v => v.chance /= chanceSum);
+    let attempts = grid.length;
+
+    while (attempts--) {
+        const size = random.elWithChance(sizes).size;
+        let attempts = grid.length;
+        while (attempts--) {
+            const { x, y } = grid.getXY(random.nextInt(grid.length));
+            if (grid.checkSquere(x, y, size)) {
+                grid.placeSquare(x, y, size)
+                placeImage(random.from(images), x, y, size, size);
+                break;
+            }
         }
     }
+    for (let i = 0; i < grid.length; ++i)
+        if (!grid.get(i)) {
+            grid.set(true, i);
+            const {x, y} = grid.getXY(i);
+            placeImage(random.from(images), x, y, 1, 1);
+        }
 }
 
 function init() {
@@ -88,5 +120,5 @@ function init() {
     forSaveOrLoad<JQuery, string | number>(settingsS, settings, (el, obj, key) => el[key].val(obj[key]));
 
     grid = new Grid(settings.grid.width, settings.grid.height);
-    random = new Rand(settings.seed === "" ? null : settings.seed);
+    random = new Random(settings.seed === "" ? null : settings.seed);
 }
