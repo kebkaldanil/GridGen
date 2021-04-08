@@ -6,13 +6,6 @@
     text-align: center;
 }
 
-#settings {
-    position: absolute;
-    top: 0;
-    padding-top: 15px;
-    background-color: white;
-}
-
 .border-form-group {
     border: black solid 1px;
     border-radius: 5px;
@@ -20,4 +13,8 @@
 
 #images_zone {
     border: red solid 1px;
+}
+
+.src_img {
+    padding-top: 8px;
 }

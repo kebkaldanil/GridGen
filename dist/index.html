@@ -14,62 +14,56 @@
 <body>
     <div class="container-fluid">
         <div class="row vh-100">
-            <div class="col-3" id="images_zone">
-                <button type="button" class="btn btn-primary" id="settings_show">Settings</button>
+            <div class="col-5" id="images_zone">
+                <div class="container-fluid" id="settings">
+                    <div class="row">
+                        <div class="form-group col">
+                            <label>Seed:</label>
+                            <input type="text" class="form-control w-25 inline" id="seed">
+                        </div>
+                    </div>
+                    <div class="row image">
+                        <div>Image</div>
+                        <div class="form-group col border-form-group">
+                            <label>Width:</label>
+                            <input type="number" class="form-control w-25 inline width" min="2">
+                            <label>Height:</label>
+                            <input type="number" class="form-control w-25 inline height" min="2">
+                        </div>
+                    </div>
+                    <div class="row grid">
+                        <div>Grid</div>
+                        <div class="form-group col border-form-group">
+                            <label>Width:</label>
+                            <input type="number" class="form-control w-25 inline width" min="2">
+                            <label>Height:</label>
+                            <input type="number" class="form-control w-25 inline height" min="2">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label>Size 1x1 chance:</label>
+                            <input type="range" class="form-control w-25 inline" id="size1" min="0" max="1" step="0.01">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label>Size 2x2 chance:</label>
+                            <input type="range" class="form-control w-25 inline" id="size2" min="0" max="1" step="0.01">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label>Size 4x4 chance:</label>
+                            <input type="range" class="form-control w-25 inline" id="size4" min="0" max="1" step="0.01">
+                        </div>
+                    </div>
+                </div>
                 <!--<input type="file" id="load_image_input">-->
                 <div id="images_container"></div>
             </div>
-            <div class="col-9">
+            <div class="col-7">
                 <canvas id="output_image" class="w-100 mh-100"></canvas>
-            </div>
-        </div>
-    </div>
-    <div class="container-fluid vh-100" id="settings">
-        <div class="row">
-            <div class="col">
-                <button type="button" class="btn btn-primary" id="settings_hide">Settings</button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col">
-                <label>Seed:</label>
-                <input type="text" class="form-control w-25 inline" id="seed">
-            </div>
-        </div>
-        <div class="row image">
-            <div>Image</div>
-            <div class="form-group col border-form-group">
-                <label>Width:</label>
-                <input type="number" class="form-control w-25 inline width" min="2">
-                <label>Height:</label>
-                <input type="number" class="form-control w-25 inline height" min="2">
-            </div>
-        </div>
-        <div class="row grid">
-            <div>Grid</div>
-            <div class="form-group col border-form-group">
-                <label>Width:</label>
-                <input type="number" class="form-control w-25 inline width" min="2">
-                <label>Height:</label>
-                <input type="number" class="form-control w-25 inline height" min="2">
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col">
-                <label>Size 1x1 chance:</label>
-                <input type="range" class="form-control w-25 inline" id="size1" min="0" max="1" step="0.01">
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col">
-                <label>Size 2x2 chance:</label>
-                <input type="range" class="form-control w-25 inline" id="size2" min="0" max="1" step="0.01">
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group col">
-                <label>Size 4x4 chance:</label>
-                <input type="range" class="form-control w-25 inline" id="size4" min="0" max="1" step="0.01">
             </div>
         </div>
     </div>
